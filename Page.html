@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Joukkueet ja lupaukset</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="palkki">
+        <h1>Joukkueiden tiedot yllätysjärjestyksessä</h1>
+    </div>
+    <div id="app">
+        <div class="palkki">
+            <input type="text" v-model="numero" placeholder="Anna numero väliltä 1-30" >
+            <button class="button" type="button" name="button" @click="tiedot()"> Näytä seuran tiedot </button>
+
+        </div>
+        <div class="tiedot">
+            <!--Joukkueiden tiedot-->
+            <h4>Seuran nimi: {{ joukkue }}</h4>
+            <h4>Areenan nimi: {{ areena }}</h4>
+            <h4>Kaupunki: {{ kaupunki }}</h4>
+            <h4>Kotisivu: {{ kotisivu }}</h4>
+            
+        </div>
+    </div>
+    <div class="palkki">
+        <h1>Lupaavien pelaajien tietojen haku</h1>
+    </div>
+          <!--show api and searching the exist names-->
+          <div id="api">
+            <h3>Aloita etsimään lupaavaa pelaajaa kirjoittamalla edes osa hänen nimestään</h3>
+            <!--Etsintäkenttä-->
+            <input
+              type="text"
+              v-model.trim="etsi" 
+              placeholder="Etsi pelaajaa..."
+              @keyup="pelaajienData"
+            /><br />
+            <!--Taulukon luonti pelaajille-->
+            <table class="taulukko">
+                <tbody>
+                <tr>
+                    <th>Nimi</th>
+                    <th>Kansallisuus</th>
+                    <th>Syntymäaika</th>
+                    <th>Pelipaikka</th>
+                    <th>Kätisyys</th>
+                </tr>
+                <template v-for="person in pelaajat">
+                <tr>
+                    <td>
+                    {{ person.fullName }}<!--nimi-->
+                    </td>
+                    <td>
+                    {{ person.birthCountry }}   <!--syntymämaa-->   
+                    </td>
+                    <td>
+                    {{ person.birthDate }}   <!--syntynyt-->
+                    </td>
+                    <td>
+                    {{ person.primaryPosition.name }}   <!--pelipaikka-->
+                    </td>
+                    <td>
+                    {{ person.shootsCatches }}   <!--kätisyys-->
+                    </td>
+                </tr>
+                </template>               
+            </table>
+        </div>
+  
+         <!--Vue, axios ja scripti-->
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="script.js"></script>
+
+ 
+</body>
+</html>
